@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.bmiresultscreen.screens
 
+import android.content.Context
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -26,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
@@ -34,11 +36,26 @@ import androidx.compose.ui.tooling.preview.Preview
 
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import br.senai.sp.jandira.bmi.R
 
 
 @Composable
-fun BmiResult(){
+fun BmiResult(navegacao: NavHostController?){
+    val context = LocalContext.current
+
+    val userFile = context
+        .getSharedPreferences("userFile", Context.MODE_PRIVATE)
+
+    val editor = userFile.edit()
+
+    val userWeight = userFile.getInt("user_weight", 0)
+
+    val userHeight = userFile.getFloat("user_height", 0.0f)
+
+    val userAge = userFile.getInt("user_age", 0)
+
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -58,7 +75,7 @@ fun BmiResult(){
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(15.dp)
-                    .weight(1f),
+                    .height(100.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
@@ -71,7 +88,7 @@ fun BmiResult(){
             Card(
                 modifier = Modifier
                     .fillMaxSize()
-                    .weight(7f),
+                    .width(width = 700.dp),
                 shape = RoundedCornerShape(
                     topStart = 32.dp,
                     topEnd = 32.dp
@@ -136,7 +153,8 @@ fun BmiResult(){
                         ){
                             Column(
                                 modifier = Modifier
-                                    .weight(1f),
+                                    .width(70.dp)
+                                    .height(60.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Text(
@@ -146,7 +164,7 @@ fun BmiResult(){
                                     fontSize = 20.sp
                                 )
                                 Text(
-                                    text = stringResource(R.string.age_value),
+                                    text = stringResource(R.string.age_value) + "$userAge",
                                     color = Color.Black,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 20.sp
@@ -155,17 +173,18 @@ fun BmiResult(){
                             VerticalDivider()
                             Column(
                                 modifier = Modifier
-                                    .weight(1f),
+                                    .width(70.dp)
+                                    .height(60.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Text(
-                                    text = stringResource(R.string.weight),
+                                    text = stringResource(R.string.weight) + "$userWeight",
                                     color = Color.Gray,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 20.sp
                                 )
                                 Text(
-                                    text = stringResource(R.string.weight_value),
+                                    text = stringResource(R.string.weight_value) + "$userWeight",
                                     color = Color.Black,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 20.sp
@@ -174,17 +193,18 @@ fun BmiResult(){
                             VerticalDivider()
                             Column(
                                 modifier = Modifier
-                                    .weight(1f),
+                                    .width(70.dp)
+                                    .height(60.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Text(
-                                    text = stringResource(R.string.height),
+                                    text = stringResource(R.string.height) + "$userHeight",
                                     color = Color.Gray,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 20.sp
                                 )
                                 Text(
-                                    text = stringResource(R.string.height_value),
+                                    text = stringResource(R.string.height_value) + "$userHeight",
                                     color = Color.Black,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 20.sp
@@ -202,7 +222,10 @@ fun BmiResult(){
                     }
                     HorizontalDivider()
                     Button(
-                        onClick = {},
+                        onClick = {
+                            navegacao?.navigate("dados")
+                            editor.apply()
+                        },
                         modifier = Modifier
                             .padding(horizontal = 16.dp)
                             .height(50.dp),
@@ -227,5 +250,5 @@ fun BmiResult(){
 @Preview(showSystemUi = true)
 @Composable
 private fun BMIResultPreview() {
-    BmiResult()
+    BmiResult(null)
 }

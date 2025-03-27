@@ -18,5 +18,7 @@
     <string name="age_value">25</string>
     <string name="weight_value">70</string>
     <string name="height_value">178</string>
-
+    <string name="name_error_message">The user name is required</string>
+    <string name="texto_class">You have Class I Obesity</string>
+    <string name="valor">30,6</string>
 </resources>

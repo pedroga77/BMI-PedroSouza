@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">BMI</string>
     <string name="logo">Application Logo</string>
-    <string name="welcome">Welcome!</string>
+    <string name="welcome">Bem Vindo !</string>
     <string name="your_name">What\'s your name</string>
     <string name="next">Your BMI Result</string>
-    <string name="hi">Hi!</string>
+    <string name="hi">Hi</string>
     <string name="calculate">Calculate</string>
     <string name="age">Age</string>
     <string name="weight">Weight</string>
@@ -18,5 +18,8 @@
     <string name="age_value">25</string>
     <string name="weight_value">70</string>
     <string name="height_value">178</string>
+    <string name="name_error_message">The user name is required</string>
+    <string name="class_bmi">You have Class I Obesity</string>
+    <string name="bmi_value">30,6</string>
 
 </resources>
