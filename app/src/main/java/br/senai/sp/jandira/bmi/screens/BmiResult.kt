@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.senai.sp.jandira.bmi.R
+import java.util.Locale
 
 
 @Composable
@@ -47,12 +48,8 @@ fun BmiResult(navegacao: NavHostController?){
     val userFile = context
         .getSharedPreferences("userFile", Context.MODE_PRIVATE)
 
-    val editor = userFile.edit()
-
     val userWeight = userFile.getInt("user_weight", 0)
-
     val userHeight = userFile.getFloat("user_height", 0.0f)
-
     val userAge = userFile.getInt("user_age", 0)
 
 
@@ -164,7 +161,7 @@ fun BmiResult(navegacao: NavHostController?){
                                     fontSize = 20.sp
                                 )
                                 Text(
-                                    text = stringResource(R.string.age_value) + "$userAge",
+                                    text = "$userAge",
                                     color = Color.Black,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 20.sp
@@ -178,13 +175,13 @@ fun BmiResult(navegacao: NavHostController?){
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Text(
-                                    text = stringResource(R.string.weight) + "$userWeight",
+                                    text = stringResource(R.string.weight),
                                     color = Color.Gray,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 20.sp
                                 )
                                 Text(
-                                    text = stringResource(R.string.weight_value) + "$userWeight",
+                                    text =  "$userWeight",
                                     color = Color.Black,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 20.sp
@@ -198,13 +195,13 @@ fun BmiResult(navegacao: NavHostController?){
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Text(
-                                    text = stringResource(R.string.height) + "$userHeight",
+                                    text = stringResource(R.string.height),
                                     color = Color.Gray,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 20.sp
                                 )
                                 Text(
-                                    text = stringResource(R.string.height_value) + "$userHeight",
+                                    text = String.format(Locale.getDefault(), "%.2f", userHeight),
                                     color = Color.Black,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 20.sp
@@ -224,7 +221,6 @@ fun BmiResult(navegacao: NavHostController?){
                     Button(
                         onClick = {
                             navegacao?.navigate("dados")
-                            editor.apply()
                         },
                         modifier = Modifier
                             .padding(horizontal = 16.dp)

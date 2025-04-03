@@ -21,5 +21,12 @@
     <string name="name_error_message">The user name is required</string>
     <string name="class_bmi">You have Class I Obesity</string>
     <string name="bmi_value">30,6</string>
+    <string name="obisty_1">You Have Class I Obesity!</string>
+    <string name="obisty_2">You Have Class II Obesity!</string>
+    <string name="obisty_3">You Have Class III Obesity!</string>
+    <string name="normal">You Have normal Body weight!</string>
+    <string name="under_weight">You are bellow your ideal weight!</string>
+    <string name="over_height">You are slinghtly overwieght!</string>
+
 
 </resources>
