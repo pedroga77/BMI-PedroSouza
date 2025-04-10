@@ -23,11 +23,13 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.internal.composableLambdaNInstance
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
@@ -38,6 +40,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.senai.sp.jandira.bmi.R
+import br.senai.sp.jandira.bmi.calcs.bmiCalculate
+import br.senai.sp.jandira.bmi.model.BmiStatus
+import br.senai.sp.jandira.bmi.screens.components.BmiLevel
+import br.senai.sp.jandira.bmi.utils.convertNumberToLocale
 import java.util.Locale
 
 
@@ -51,6 +57,8 @@ fun BmiResult(navegacao: NavHostController?){
     val userWeight = userFile.getInt("user_weight", 0)
     val userHeight = userFile.getFloat("user_height", 0.0f)
     val userAge = userFile.getInt("user_age", 0)
+
+    val bmi = bmiCalculate(userWeight, userHeight.toDouble().div(100))
 
 
     Box(
@@ -106,10 +114,11 @@ fun BmiResult(navegacao: NavHostController?){
                         modifier = Modifier
                             .size(100.dp),
                         shape = CircleShape,
-                        border = BorderStroke(5.dp, Color(color = 0xFFA90000)),
+                        border = BorderStroke(5.dp, color = bmi.bmiColor),
                         colors = CardDefaults.cardColors(
                             containerColor = Color.White
                         )
+
                     )   {
                         Column (
                             modifier = Modifier
@@ -118,10 +127,11 @@ fun BmiResult(navegacao: NavHostController?){
                             verticalArrangement = Arrangement.Center
                         )   {
                             Text(
-                                text = stringResource(R.string.valor),
-                                color = Color.Black,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 35.sp
+                               text = String.format(
+                                   Locale.getDefault(),
+                                   "%.1f",
+                                   bmi.bmi.second
+                               )
                             )
                         }
                     }
@@ -131,7 +141,7 @@ fun BmiResult(navegacao: NavHostController?){
                         horizontalAlignment = Alignment.CenterHorizontally
                     ){
                         Text(
-                            text = stringResource(R.string.texto_class),
+                            text = bmi.bmi.first,
                             color = Color.Black,
                             fontWeight = FontWeight.Bold,
                             fontSize = 20.sp
@@ -215,6 +225,46 @@ fun BmiResult(navegacao: NavHostController?){
                             .height(300.dp)
                             .background(Color.LightGray)
                     ){
+                        BmiLevel(
+                            bulletColor = colorResource(R.color.light_blue),
+                            leftText = stringResource(R.string.underweight),
+                            rightText = "< ${convertNumberToLocale(18.5)}",
+                            isFilled = if (bmi.bmiStatus == BmiStatus.UNDER_WEIGHT) true else false
+                        )
+                        BmiLevel(
+                            bulletColor = colorResource(R.color.light_green),
+                            leftText = stringResource(R.string.underweight),
+                            rightText = "< ${convertNumberToLocale(18.5)}" ,
+                            isFilled = if (bmi.bmiStatus == BmiStatus.UNDER_WEIGHT) true else false
+                        )
+                        BmiLevel(
+                            bulletColor = colorResource(R.color.yellow),
+                            leftText = stringResource(R.string.underweight),
+                            rightText = "< ${convertNumberToLocale(18.5)}",
+                            isFilled = if (bmi.bmiStatus == BmiStatus.UNDER_WEIGHT) true else false
+
+                        )
+                        BmiLevel(
+                            bulletColor = colorResource(R.color.light_orange),
+                            leftText = stringResource(R.string.underweight),
+                            rightText = "< ${convertNumberToLocale(18.5)}",
+                            isFilled = if (bmi.bmiStatus == BmiStatus.UNDER_WEIGHT) true else false
+
+                        )
+                        BmiLevel(
+                            bulletColor = colorResource(R.color.dark_orange),
+                            leftText = stringResource(R.string.underweight),
+                            rightText = "< ${convertNumberToLocale(18.5)}",
+                            isFilled = if (bmi.bmiStatus == BmiStatus.UNDER_WEIGHT) true else false
+
+                        )
+                        BmiLevel(
+                            bulletColor = colorResource(R.color.red),
+                            leftText = stringResource(R.string.underweight),
+                            rightText = "< ${convertNumberToLocale(18.5)}",
+                            isFilled = if (bmi.bmiStatus == BmiStatus.UNDER_WEIGHT) true else false
+
+                        )
 
                     }
                     HorizontalDivider()

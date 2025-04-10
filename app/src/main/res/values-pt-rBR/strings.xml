@@ -27,4 +27,6 @@
     <string name="normal">You Have normal Body weight!</string>
     <string name="under_weight">You are bellow your ideal weight!</string>
     <string name="over_height">You are slinghtly overwieght!</string>
+    <string name="underweight">You are slinghtly overwieght!</string>
+
 </resources>
